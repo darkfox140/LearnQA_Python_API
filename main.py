@@ -1,7 +1,26 @@
 import requests
+import json
+import time
 
 
-def check_http_methods():
+def longtime_job():
+    respons_1 = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job")
+    token = json.loads(respons_1.text)
+    respons_2 = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job", params=token)
+    answer = json.loads(respons_2.text)
+    if answer["status"] == "Job is NOT ready":
+        time.sleep(token["seconds"])
+        respons_3 = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job", params=token)
+        result = json.loads(respons_3.text)
+        assert result["result"] == "42" and result["status"] == "Job is ready"
+        print(respons_3.text)
+        print(respons_3.status_code)
+
+
+longtime_job()
+
+
+'''def check_http_methods():
 
     methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "COPY", "HEAD", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW"]
     link = "https://playground.learnqa.ru/ajax/api/compare_query_type"
@@ -26,4 +45,4 @@ def check_http_methods():
                                       result.text == '{"success":"!"}'))
 
 
-check_http_methods()
+check_http_methods()'''

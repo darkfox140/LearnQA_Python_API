@@ -3,9 +3,9 @@ import requests
 
 def check_http_methods():
 
-    methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "COPY", "HEAD"]
+    methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "COPY", "HEAD", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW"]
     link = "https://playground.learnqa.ru/ajax/api/compare_query_type"
-    allowed_methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"]
+    allowed_methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "COPY", "HEAD", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW"]
     print_string = "HTTP type: {}, method in params/data: {}\nRespose: code {}, text \"{}\"\nКоректно: {}\n"
 
     for http_method in allowed_methods:

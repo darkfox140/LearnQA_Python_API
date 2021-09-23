@@ -4,7 +4,8 @@ import requests
 class TestShortPhraseTest:
     def test_check_phrase(self):
         url = "https://playground.learnqa.ru/api/homework_cookie"
-        response = requests.get(url)
+        data = {'HomeWork': 'hw_value'}
+        response = requests.get(url, params=data)
         cookies = response.cookies
 
         assert response.status_code == 200

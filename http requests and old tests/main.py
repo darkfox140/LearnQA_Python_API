@@ -21,15 +21,13 @@ def some_password():
         response_1 = requests.post(url_passwords, data=data)
         cookies = response_1.cookies
         response_2 = requests.get(url_cookies, cookies=cookies)
-        if str(response_2.text) == "You are authorized":
+        if response_2.text == "You are authorized":
             print(password)
             print(response_2.text)
             break
 
 
 some_password()
-
-
 
 '''def test_longtime_job():
     respons_1 = requests.get("https://playground.learnqa.ru/ajax/api/longtime_job")
@@ -43,7 +41,6 @@ some_password()
         assert result["result"] == "42" and result["status"] == "Job is ready"
         print(respons_3.text)
         print(respons_3.status_code)'''
-
 
 '''def test_check_http_methods():
     methods_list = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "COPY", "HEAD", "LINK", "UNLINK", "PURGE", "LOCK", "UNLOCK", "PROPFIND", "VIEW"]

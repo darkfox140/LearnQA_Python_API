@@ -1,0 +1,4 @@
+.idea
+.pytest_cache
+http requests and old tests
+__pycache__/

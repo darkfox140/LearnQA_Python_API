@@ -1,12 +1,16 @@
 import requests
+import json
 
 
 class TestShortPhraseTest:
     def test_check_phrase(self):
-        url = "https://playground.learnqa.ru/api/homework_cookie"
-        data = {'HomeWork': 'hw_value'}
-        response = requests.get(url, params=data)
-        cookies = response.cookies
+        url = "https://playground.learnqa.ru/api/homework_header"
 
-        assert response.status_code == 200
-        assert cookies == {'HomeWork': 'hw_value'}
+        response = requests.get(url)
+        assert response.status_code == 200, "Wrong response code"
+
+        actual_response_text = response.headers['x-secret-homework-header']
+        expected_response_text = 'Some secret value'
+
+        assert 'x-secret-homework-header' in response.headers
+        assert expected_response_text == actual_response_text

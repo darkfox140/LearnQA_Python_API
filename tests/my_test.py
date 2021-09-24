@@ -4,7 +4,7 @@ import requests
 class TestCheckCookie:
     def test_check_cookie(self):
         url = "https://playground.learnqa.ru/api/homework_cookie"
-
+        
         response = requests.get(url)
 
         assert response.status_code == 200, "Wrong response code"

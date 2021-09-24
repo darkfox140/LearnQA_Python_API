@@ -1,16 +1,19 @@
 import requests
 
 
-class TestHeader:
-    def test_check_header(self):
-        url = "https://playground.learnqa.ru/api/homework_header"
+class TestCheckCookie:
+    def test_check_cookie(self):
+        url = "https://playground.learnqa.ru/api/homework_cookie"
+
         response = requests.get(url)
-        headers = response.headers
-        print(headers)
 
         assert response.status_code == 200, "Wrong response code"
-        assert "x-secret-homework-header" in headers, "В headers нет поля 'x-secret-homework-header'"
 
-        expected_response_headers_value = 'Some secret value'
-        actual_response_headers_value = headers['x-secret-homework-header']
-        assert expected_response_headers_value == actual_response_headers_value, "Значения headers не совпадают"
+        cookies = response.cookies
+        print(dict(cookies))
+
+        assert "HomeWork" in cookies, "Значение 'HomeWork' отсутствует в cookies"
+
+        expected_response_cookies_value = 'hw_value'
+        actual_response_cookies_value = cookies['HomeWork']
+        assert expected_response_cookies_value == actual_response_cookies_value, "Значения cookies не совпадают"

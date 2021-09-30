@@ -8,14 +8,14 @@ from lib.assertios import Assertions
 class TestUserAuth(BaseCase):
 
     exclude_params = [
-        ("no_cookie"),
-        ("no_token")
+        "no_cookie",
+        "no_token"
     ]
 
     def setup(self):
         data = {
-            "email": "vinkotov@example.com",
-            "password": "1234"
+            'email': 'vinkotov@example.com',
+            'password': '1234'
         }
 
         response1 = requests.post("https://playground.learnqa.ru/api/user/login", data=data)
@@ -35,7 +35,7 @@ class TestUserAuth(BaseCase):
             response2,
             "user_id",
             self.user_id_from_auth_method,
-            "User id from auth method is not equal to user id from check method"
+            "USser id из метода аутентификации не равен user id из метода проверки"
         )
 
     @pytest.mark.parametrize("condition", exclude_params)
@@ -54,5 +54,5 @@ class TestUserAuth(BaseCase):
             response2,
             "user_id",
             0,
-            f"User is autorized with condition {condition}"
+            f"Пользователь авторизован с условием {condition}"
         )

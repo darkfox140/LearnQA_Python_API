@@ -1,6 +1,8 @@
 from requests import Response
 import json.decoder
 from datetime import datetime
+import random
+import string
 
 
 class BaseCase:
@@ -23,16 +25,29 @@ class BaseCase:
 
         return response_as_dict[name]
 
-    def prepare_registration_data(self, email=None):
+    def prepare_registration_data(self, email=None, first_name=None, last_name=None, user_name=None, password=None):
         if email is None:
             base_part = "learnqa"
-            domain = "example.com"
             random_part = datetime.now().strftime("%m%d%Y%H%M%S")
+            domain = "example.com"
             email = f"{base_part}{random_part}@{domain}"
+        if first_name is None:
+            first_name = 'firstName'
+        if last_name is None:
+            last_name = 'learnqa'
+        if user_name is None:
+            user_name = 'learnqa'
+        if password is None:
+            password = '123'
         return {
-            'password': '123',
-            'username': 'learnqa',
-            'firstName': 'learnqa',
-            'lastName': 'learnqa',
-            'email': email,
+            'password': password,
+            'username': user_name,
+            'firstName': first_name,
+            'lastName': last_name,
+            'email': email
         }
+
+    def random_string(self):
+        symbols = string.ascii_letters
+        long = random.randrange(251, 252)
+        return "".join([random.choice(symbols) for e in range(long)])

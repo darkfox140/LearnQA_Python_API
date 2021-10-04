@@ -15,10 +15,39 @@ class TestUserRegister(BaseCase):
 
     def test_create_user_with_existing_email(self):
         email = 'vinkotov@example.com'
-        data = self.prepare_registration_data(email)
+        data = self.prepare_registration_data(email=email)
 
         response = MyRequests.post('/user/', data=data)
 
         Assertions.assert_status_code(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", \
-            f"Unexpected response content: {response.content}"
+            f"Не ожидаемый ответ: {response.content}"
+
+    def test_create_user_with_incorrect_email(self):
+        email = 'red21example.com'
+        data = self.prepare_registration_data(email=email)
+
+        response = MyRequests.post('/user/', data=data)
+
+        Assertions.assert_status_code(response, 400)
+        assert response.content.decode("utf-8") == "Invalid email format", f"Не ожидаемый ответ: {response.content}"
+
+    def test_creating_user_with_a_short_name(self):
+        firstName = self.random_string()[1]
+        data = self.prepare_registration_data(first_name=firstName)
+
+        response = MyRequests.post('/user/', data=data)
+
+        Assertions.assert_status_code(response, 400)
+        assert response.content.decode("utf-8") == "The value of 'firstName' field is too short", \
+            f"Не ожидаемый ответ: {response.conten}"
+
+    def test_creating_user_with_a_long_name(self):
+        firstName = self.random_string()
+        data = self.prepare_registration_data(first_name=firstName)
+
+        response = MyRequests.post('/user/', data=data)
+
+        Assertions.assert_status_code(response, 400)
+        assert response.content.decode("utf-8") == "The value of 'firstName' field is too long", \
+            f"Не ожидаемый ответ: {response.conten}"

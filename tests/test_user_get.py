@@ -7,11 +7,11 @@ class TestUserGet(BaseCase):
 
     def test_get_user_details_not_auth(self):
         response = MyRequests.get("/user/2")
+        print(response.text)
 
         Assertions.assert_json_has_key(response, "username")
-        Assertions.assert_json_has_not_key(response, "email")
-        Assertions.assert_json_has_not_key(response, "firstName")
-        Assertions.assert_json_has_not_key(response, "lastName")
+        expected_fields = ["email", "firstName", "lastName"]
+        Assertions.assert_json_has_not_keys(response, expected_fields)
 
     def test_get_user_details_auth_as_same_user(self):
         data = {
@@ -30,6 +30,7 @@ class TestUserGet(BaseCase):
             headers={"x-csrf-token": token},
             cookies={"auth_sid": auth_sid}
         )
+        print(response2.text)
 
         expected_fields = ["username", "email", "firstName", "lastName"]
         Assertions.assert_json_has_keys(response2, expected_fields)

@@ -1,2 +1,5 @@
 http_requests_and_old_tests
 /logs/
+/debugger.py
+
+

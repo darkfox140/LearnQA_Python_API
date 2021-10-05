@@ -42,7 +42,7 @@ class TestUserRegister(BaseCase):
         assert response.content.decode("utf-8") == "Invalid email format", f"Не ожидаемый ответ: {response.content}"
 
     @pytest.mark.parametrize('test', test_params)
-    def test_creating_user_121(self, test):
+    def test_creating_user_with_an_empty_field(self, test):
         data, empty_key = test
 
         response = MyRequests.post('/user/', data=data)

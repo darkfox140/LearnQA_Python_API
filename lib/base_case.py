@@ -25,20 +25,22 @@ class BaseCase:
 
         return response_as_dict[name]
 
-    def prepare_registration_data(self, email=None, first_name=None, last_name=None, user_name=None, password=None):
+    def prepare_registration_data(self, email=None, first_name='firstName',
+                                  last_name='learnqa', user_name='learnqa', password='123'):
         if email is None:
             base_part = "learnqa"
             random_part = datetime.now().strftime("%m%d%Y%H%M%S")
             domain = "example.com"
             email = f"{base_part}{random_part}@{domain}"
-        if first_name is None:
-            first_name = 'firstName'
-        if last_name is None:
-            last_name = 'learnqa'
-        if user_name is None:
-            user_name = 'learnqa'
-        if password is None:
-            password = '123'
+        if first_name:
+            self.first_name = first_name
+        if last_name:
+            self.last_name = last_name
+        if user_name:
+            self.user_name = user_name
+        if password:
+            self.password = password
+
         return {
             'password': password,
             'username': user_name,
@@ -47,7 +49,5 @@ class BaseCase:
             'email': email
         }
 
-    def random_string(self):
-        symbols = string.ascii_letters
-        long = random.randrange(251, 252)
-        return "".join([random.choice(symbols) for e in range(long)])
+    def random_string(self, length):
+        return "".join([random.choice(string.ascii_lowercase) for e in range(length)])

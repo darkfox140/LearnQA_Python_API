@@ -43,6 +43,16 @@ class Assertions:
         assert name not in response_as_dict, f"В ответе JSON не должно быть ключа '{name}'. Но ключ присутствует"
 
     @staticmethod
+    def assert_json_has_not_keys(response: Response, names: list):
+        try:
+            response_as_dict = response.json()
+        except json.JSONDecodeError:
+            assert False, f"Ответ не в формате JSON. Текст ответа '{response.text}'"
+
+        for name in names:
+            assert name not in response_as_dict, f"В ответе JSON не должно быть ключа '{name}'. Но ключ присутствует"
+
+    @staticmethod
     def assert_status_code(response: Response, expected_status_code):
         assert response.status_code == expected_status_code, \
             f"Не ожидаемый status code! Ожидаемый: {expected_status_code}. Фактический: {response.status_code}"

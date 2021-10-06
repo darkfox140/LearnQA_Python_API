@@ -129,7 +129,7 @@ class TestUserEdit(BaseCase):
 
         assert response3.content.decode("utf-8") == "Invalid email format", f"Не ожидаемый ответ: {response.content}"
 
-    # Авторизация и редактирование имени на оди символ
+    # Авторизация и редактирование имени на один символ
     def test_name_changes_by_an_authorized_user(self):
         # Регистрация
         register_data = self.prepare_registration_data()

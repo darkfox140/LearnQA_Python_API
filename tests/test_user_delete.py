@@ -90,7 +90,7 @@ class TestUserRegister(BaseCase):
             "password": password1,
         }
 
-        response3 = MyRequests.post("/user/login", data=new_login_data1)
+        response3 = MyRequests.get("/user/login", data=new_login_data1)
 
         Assertions.assert_status_code(response3, 200)
 
@@ -109,7 +109,7 @@ class TestUserRegister(BaseCase):
         auth_sid2 = self.get_cookie(response3, "auth_sid")
         token2 = self.get_header(response3, "x-csrf-token")
 
-        response5 = MyRequests.delete(f"/user/{user_id1}",
+        response5 = MyRequests.get(f"/user/{user_id1}",
                                       headers={"x-csrf-token": token1},
                                       cookies={"auth_sid": auth_sid1})
 

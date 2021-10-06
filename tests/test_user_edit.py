@@ -9,6 +9,7 @@ class TestUserEdit(BaseCase):
     def test_edit_just_created_user(self):
         # Регистрация
         register_data = self.prepare_registration_data()
+
         response1 = MyRequests.post("/user", data=register_data)
 
         Assertions.assert_status_code(response1, 200)
@@ -44,6 +45,7 @@ class TestUserEdit(BaseCase):
 
         # GET
         response4 = MyRequests.get(f"/user/{user_id}", headers={"x-csrf-token": token}, cookies={"auth_sid": auth_sid})
+
         Assertions.assert_json_value_by_name(
             response4,
             "firstName",
@@ -69,7 +71,6 @@ class TestUserEdit(BaseCase):
         new_name = "Goblin"
 
         response2 = MyRequests.put(f"/user/{user_id}", data={'firstName': new_name})
-
         Assertions.assert_status_code(response2, 400)
 
         # Логгин
@@ -126,7 +127,6 @@ class TestUserEdit(BaseCase):
         )
 
         Assertions.assert_status_code(response3, 400)
-
         assert response3.content.decode("utf-8") == "Invalid email format", f"Не ожидаемый ответ: {response.content}"
 
     # Авторизация и редактирование имени на один символ

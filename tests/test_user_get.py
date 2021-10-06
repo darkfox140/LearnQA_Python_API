@@ -1,7 +1,7 @@
-import time
 from lib.assertios import Assertions
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
+import time
 
 
 class TestUserGet(BaseCase):
@@ -46,7 +46,10 @@ class TestUserGet(BaseCase):
         response1 = MyRequests.post("/user/", data=data_register1)
 
         Assertions.assert_status_code(response1, 200)
+
         response2 = MyRequests.post("/user/", data=data_register2)
+
+        Assertions.assert_status_code(response2, 200)
 
         email = data_register1['email']
         password = data_register1['password']

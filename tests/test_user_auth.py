@@ -35,7 +35,7 @@ class TestUserAuth(BaseCase):
             response2,
             "user_id",
             self.user_id_from_auth_method,
-            "USser id из метода аутентификации не равен user id из метода проверки"
+            "User id из метода аутентификации не равен user id из метода проверки"
         )
 
     @pytest.mark.parametrize("condition", exclude_params)

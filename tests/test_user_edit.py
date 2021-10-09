@@ -1,11 +1,14 @@
+import allure
+
 from lib.base_case import BaseCase
 from lib.assertios import Assertions
 from lib.my_requests import MyRequests
 
 
+@allure.epic("Тесты на редактирования полей пользователя")
 class TestUserEdit(BaseCase):
 
-    # Редактирование имнеи будучи авторизованным
+    @allure.description("Тест на редактирование имени будучи авторизованным")
     def test_edit_just_created_user(self):
         # Регистрация
         register_data = self.prepare_registration_data()
@@ -53,7 +56,7 @@ class TestUserEdit(BaseCase):
             "Неверное имя пользователя после редактирования"
         )
 
-    # Редактирование имени без авторизации
+    @allure.description("Тест на редактирование имени без авторизации")
     def test_edit_created_user_without_auth(self):
         # Регистрация
         register_data = self.prepare_registration_data()
@@ -91,7 +94,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_json_value_wrong_name(
             response4, "firstName", new_name, "Имя пользователя изменено без авторизации!!!")
 
-    # Авторизация и редактирование почты без @
+    @allure.description("Тест на редактирование почты без @")
     def test_mail_changesby_an_autho_user(self):
         # Регистрация
         register_data = self.prepare_registration_data()
@@ -129,7 +132,7 @@ class TestUserEdit(BaseCase):
         Assertions.assert_status_code(response3, 400)
         assert response3.content.decode("utf-8") == "Invalid email format", f"Не ожидаемый ответ: {response.content}"
 
-    # Авторизация и редактирование имени на один символ
+    @allure.description("Тест на редактирование имени на один символ")
     def test_name_changes_by_an_authorized_user(self):
         # Регистрация
         register_data = self.prepare_registration_data()
